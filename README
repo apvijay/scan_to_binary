@@ -1,6 +1,9 @@
 "Convert scanned document images to monochrome pdf"
 
-Requirements: textcleaner script (http://www.fmwconcepts.com/imagemagick/textcleaner/), ImageMagick.	Please refer the license of the textcleaner script before using it.
+Requirements: 
+a. textcleaner script (http://www.fmwconcepts.com/imagemagick/textcleaner/). Please refer the license of the textcleaner script before using it.
+b. ImageMagick.	
+c. pdftk
 
 Syntax:
 ./run <file-name> <no-of-files> <file-ext>
