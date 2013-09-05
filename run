@@ -1,0 +1,41 @@
+#!/bin/bash
+FILE_NAM=$1;
+MAX_FILE_NUM=$2;
+FILE_EXT=$3;
+
+# Convert to lower case
+FILE_EXT=$(echo ${FILE_EXT} | awk '{print tolower($0)}')
+
+# Convert images to monochrome
+for (( i=1; i<=${MAX_FILE_NUM}; i++ )); do
+./textcleaner -r cw -g -e stretch -f 25 -o 10  -s 1 ${FILE_EXT}/${FILE_NAM}-${i}.${FILE_EXT} ${FILE_EXT}/${FILE_NAM}-${i}-bw.${FILE_EXT} &
+done
+echo "Converting images to monochrome..."
+
+wait
+
+if [ ! -d "pdf" ]; then
+  mkdir pdf;
+fi
+
+# Convert monochrome images to pdf
+for (( i=1; i<=${MAX_FILE_NUM}; i++ )); do
+convert -monochrome -resize 80% ${FILE_EXT}/${FILE_NAM}-${i}-bw.${FILE_EXT} pdf/${FILE_NAM}-${i}-bw.pdf &
+done
+echo "Converting monochrome images to pdf..."
+
+wait
+
+# Create file names string for pdftk (sorted by name)
+echo "Merging pdfs..."
+all_pdf=""
+for (( i=1; i<=${MAX_FILE_NUM}; i++ )); do
+new_pdf="pdf/${FILE_NAM}-${i}-bw.pdf";
+all_pdf="${all_pdf} ${new_pdf}";
+echo ${all_pdf};
+done
+
+# Merge pdfs
+pdftk ${all_pdf} cat output all.pdf
+
+echo "Done"

@@ -1,0 +1,26 @@
+"Convert scanned document images to monochrome pdf"
+
+Requirements: textcleaner script (http://www.fmwconcepts.com/imagemagick/textcleaner/), ImageMagick.	
+
+Syntax:
+./run <file-name> <no-of-files> <file-ext>
+
+Example usage:
+(1)
+./run canny 4 png
+
+It will search for files named 
+png/canny-1.png
+png/canny-2.png
+png/canny-3.png
+png/canny-4.png,
+convert them to pdf, and save it as all.pdf in the current directory.
+
+(2)
+./run viola 2 jpg
+
+It will search for files named 
+jpg/viola-1.jpg
+jpg/viola-2.jpg,
+convert them to pdf, and save it as all.pdf in the current directory.
+
